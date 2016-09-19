@@ -1,0 +1,21 @@
+video {
+  /*min-width: 100%;*/
+  /*min-height: 100%;*/
+  width: auto;
+  height: auto;
+}
+
+.row {
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
+
+#playback {
+  width: 100px;
+  display: inline;
+}
+
+.control {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

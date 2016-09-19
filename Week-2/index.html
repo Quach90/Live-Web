@@ -1,0 +1,169 @@
+<html>
+
+	<head>
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<script type="text/javascript">
+			var socket = io.connect();
+
+			socket.on('connect', function() {
+				console.log("Connected");
+			});
+
+			// Receive from any event
+			socket.on('chatmessage', function(data) {
+				console.log(data);
+				var parsedData = JSON.parse(data)
+					// document.getElementById('messages').innerHTML = "" + data +
+					// 	+"" + document.getElementById('messages').innerHTML;
+				$("#messages").prepend("<p><i>(" + parsedData.time + ")</i> <strong>" + parsedData.user + "</strong>: " + parsedData.msg + "</p>");
+			});
+
+			// Receive from any event
+			socket.on('style', function(data) {
+				console.log(data);
+				// var parsedData = JSON.parse(data)
+				// document.getElementById('messages').innerHTML = "" + data +
+				// 	+"" + document.getElementById('messages').innerHTML;
+				$("#hidden").prepend(data);
+			});
+
+			socket.on('js', function(data) {
+				console.log(data);
+				// var parsedData = JSON.parse(data)
+				// document.getElementById('messages').innerHTML = "" + data +
+				// 	+"" + document.getElementById('messages').innerHTML;
+				$("#hidden").prepend(data);
+			});
+
+			var sendmessage = function(message) {
+				var userName = document.getElementById('username').value;
+				var date = new Date();
+				var dateString = date.getMonth() + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+				var dataToSend = {
+					msg: message,
+					user: userName,
+					time: dateString
+				};
+				console.log("chatmessage: " + dataToSend);
+				socket.emit('chatmessage', JSON.stringify(dataToSend));
+				document.getElementById('message').value = "";
+			};
+			$(document).ready(function() {
+				$("#message").keyup(function(e) {
+					if (e.keyCode == 13) {
+						var msg = document.getElementById('message').value;
+						if (msg != null && msg != "") {
+							sendmessage(msg);
+						}
+					}
+				});
+				$("#style").keyup(function(e) {
+					if (e.keyCode == 13) {
+						var msg = document.getElementById('style').value;
+						if (msg != null && msg != "") {
+							sendStyle(msg);
+						}
+					}
+				});
+				$("#js").keyup(function(e) {
+					if (e.keyCode == 13) {
+						var msg = document.getElementById('js').value;
+						if (msg != null && msg != "") {
+							sendJs(msg);
+						}
+					}
+				});
+				$("#image").keyup(function(e) {
+					if (e.keyCode == 13) {
+						var msg = document.getElementById('image').value;
+						if (msg != null && msg != "") {
+							sendImg(msg);
+						}
+					}
+				});
+			})
+
+			function sendStyle(style) {
+				socket.emit('style', style);
+			}
+
+			function sendJs(js) {
+				socket.emit('js', js);
+			}
+
+			function sendImg(img) {
+				sendmessage("<img src='" + img + "'>")
+			}
+		</script>
+	</head>
+
+	<body>
+		<div class="panel panel-default">
+
+
+
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-md-2">
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">Name</span>
+							<input id="username" type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon1">
+						</div>
+					</div>
+					<div class="input-group col-md-10">
+						<input id="message" type="text" class="form-control" placeholder="Message...">
+						<span class="input-group-btn">
+		        <button class="btn btn-default" type="button" onclick="sendmessage(document.getElementById('message').value);">Send</button>
+		      </span>
+					</div>
+					<br />
+					<div class="col-md-4">
+						<div class="input-group">
+							<input id="style" type="text" class="form-control" placeholder="p{background-color: red}">
+							<span class="input-group-btn">
+		        <button class="btn btn-default" type="button" onclick="sendStyle(document.getElementById('style').value);">Send style</button>
+		      </span>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="input-group">
+							<input id="js" type="text" class="form-control" placeholder="alert('Yo');">
+							<span class="input-group-btn">
+		        <button class="btn btn-default" type="button" onclick="sendJs(document.getElementById('js').value);">Send JS</button>
+		      </span>
+						</div>
+					</div>
+
+					<div class="col-md-4">
+						<div class="input-group">
+							<input id="image" type="text" class="form-control" placeholder="Link to img...">
+							<span class="input-group-btn">
+		        <button class="btn btn-default" type="button" onclick="sendImg(document.getElementById('image').value);">Send img</button>
+		      </span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="panel-body">
+				<div id="messages">
+				</div>
+			</div>
+		</div>
+
+		<div id="hidden" display="none">
+
+		</div>
+
+	</body>
+
+</html>
