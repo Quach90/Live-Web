@@ -1,0 +1,30 @@
+<html>
+
+    <head>
+        <script type="text/javascript">
+            function onOrientationChange(e) {
+                var alpha = e.alpha,
+                    beta = e.beta,
+                    gamma = e.gamma;
+
+                var elem = document.getElementById('map');
+                // map.innerHTML = alpha + " " + beta + " " + gamma;
+
+                document.body.background = 'RGB(' + map_range(alpha, 0, 360, 0, 255) + ", " + map_range(beta, 0, 360, 0, 255) + ", " + map_range(gamma, 0, 360, 0, 255) + ")"
+
+                console.log(Math.floor(alpha) + " " + Math.floor(beta) + " " + Math.floor(gamma));
+            }
+
+            function map_range(value, low1, high1, low2, high2) {
+                return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+            }
+
+            window.addEventListener('deviceorientation', onOrientationChange, false);
+        </script>
+    </head>
+
+    <body>
+        <div id="map"></div>
+    </body>
+
+</html>
