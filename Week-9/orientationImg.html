@@ -7,28 +7,7 @@
                     beta = e.beta,
                     gamma = e.gamma;
 
-                var elem = document.getElementById('img');
-
-                var img1 = document.createElement('img');
-                img1.src = 'https://static.dvidshub.net/media/thumbs/photos/1210/692947/800w_q75.jpg';
-                img1.style.display = 'none';
-
-                var img2 = document.createElement('img');
-                img2.src = 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSsoxIrWzUxiMMki17FN5EVqiMZDbjrNO_jB7AsK_XgwcyAscSV';
-                img2.style.display = 'none';
-
-                var img3 = document.createElement('img');
-                img3.src = 'http://www.hdwallpapery.com/static/images/offset_WaterHouseMarineImages_62652-2-660x440_uu52VrQ.jpg';
-                img3.style.display = 'none';
-
-                var img4 = document.createElement('img');
-                img4.src = 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR7a92PoiEDycF5tQjN8N1lKMfYe3cVBtijNt46GW3y33zn-RhT';
-                img4.style.display = 'none';
-
-                document.body.appendChild(img1);
-                document.body.appendChild(img2);
-                document.body.appendChild(img3);
-                document.body.appendChild(img4);
+                // var elem = document.getElementById('img');
 
                 if(alpha < 90){
                   img1.style.display = '';
@@ -59,8 +38,38 @@
             function map_range(value, low1, high1, low2, high2) {
                 return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
             }
+            var img1;
+            var img2;
+            var img3;
+            var img4;
 
-            window.addEventListener('deviceorientation', onOrientationChange, false);
+            function init(){
+              img1 = document.createElement('img');
+              img1.src = 'https://static.dvidshub.net/media/thumbs/photos/1210/692947/800w_q75.jpg';
+              img1.style.display = 'none';
+
+              img2 = document.createElement('img');
+              img2.src = 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSsoxIrWzUxiMMki17FN5EVqiMZDbjrNO_jB7AsK_XgwcyAscSV';
+              img2.style.display = 'none';
+
+              img3 = document.createElement('img');
+              img3.src = 'http://www.hdwallpapery.com/static/images/offset_WaterHouseMarineImages_62652-2-660x440_uu52VrQ.jpg';
+              img3.style.display = 'none';
+
+              img4 = document.createElement('img');
+              img4.src = 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcR7a92PoiEDycF5tQjN8N1lKMfYe3cVBtijNt46GW3y33zn-RhT';
+              img4.style.display = 'none';
+
+              document.body.appendChild(img1);
+              document.body.appendChild(img2);
+              document.body.appendChild(img3);
+              document.body.appendChild(img4);
+              window.addEventListener('deviceorientation', onOrientationChange, false);
+            }
+
+            window.addEventListener('load', init);
+
+
         </script>
     </head>
 
