@@ -10,7 +10,11 @@
                 var elem = document.getElementById('map');
                 // map.innerHTML = alpha + " " + beta + " " + gamma;
 
-                document.body.style.background = 'RGB(' + (map_range(alpha, 0, 360, 0, 255)) + "," + (map_range(beta,-180, 180, 0, 255)) + "," + map_range(gamma, -90, 90, 0, 255) + ')';
+                var R = Math.floor(map_range(alpha, 0, 360, 0, 255)),
+                    G = Math.floor(map_range(beta,-180, 180, 0, 255)),
+                    B = Math.floor(map_range(gamma, -90, 90, 0, 255));
+
+                document.body.style.background = 'RGB(' + R + "," + G + "," + B + ')';
 
                 console.log(Math.floor(alpha) + " " + Math.floor(beta) + " " + Math.floor(gamma));
             }
